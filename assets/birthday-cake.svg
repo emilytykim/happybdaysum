@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380">
+  <defs>
+    <!-- Flames -->
+    <radialGradient id="flame1" cx="50%" cy="70%" r="55%">
+      <stop offset="0%" stop-color="#fffde0"/>
+      <stop offset="40%" stop-color="#ffc94a"/>
+      <stop offset="100%" stop-color="#ff7a00" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Cake body gradient -->
+    <linearGradient id="cakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f7c8da"/>
+      <stop offset="50%" stop-color="#fdeef4"/>
+      <stop offset="100%" stop-color="#f5c0d5"/>
+    </linearGradient>
+    <!-- Candle gold gradient -->
+    <linearGradient id="goldCandle" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8a400"/>
+      <stop offset="40%" stop-color="#ffd84a"/>
+      <stop offset="100%" stop-color="#c88000"/>
+    </linearGradient>
+    <!-- Plate gradient -->
+    <radialGradient id="plateGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f0d8e8"/>
+    </radialGradient>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#c0005a" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background sparkles -->
+  <g fill="#fff" opacity="0.85">
+    <path d="M52 70 l4 10 l10 3 l-10 4 l-4 11 l-4-11 l-10-4 l10-3Z"/>
+    <path d="M350 55 l3 8 l8 2 l-8 3 l-3 9 l-3-9 l-8-3 l8-2Z"/>
+    <path d="M370 190 l2 6 l6 2 l-6 2 l-2 6 l-2-6 l-6-2 l6-2Z"/>
+    <path d="M30 210 l2 5 l5 1 l-5 2 l-2 5 l-2-5 l-5-2 l5-1Z"/>
+  </g>
+  <circle cx="360" cy="240" r="5" fill="#fff" opacity="0.7"/>
+  <circle cx="38" cy="150" r="4" fill="#fff" opacity="0.6"/>
+
+  <g filter="url(#shadow)">
+    <!-- ── PLATE ── -->
+    <ellipse cx="200" cy="312" rx="155" ry="20" fill="url(#plateGrad)"/>
+
+    <!-- ── CAKE BODY ── -->
+    <!-- Main rounded cake shape -->
+    <rect x="52" y="210" width="296" height="100" rx="10" fill="url(#cakeGrad)"/>
+    <!-- Pink stripes -->
+    <rect x="52" y="228" width="296" height="16" fill="#f09ab8" rx="2"/>
+    <rect x="52" y="262" width="296" height="16" fill="#f09ab8" rx="2"/>
+    <!-- Bottom curve -->
+    <ellipse cx="200" cy="310" rx="148" ry="14" fill="#f5c0d5"/>
+
+    <!-- ── CAKE TOP (cream base) ── -->
+    <ellipse cx="200" cy="212" rx="148" ry="22" fill="#fff8fc"/>
+
+    <!-- ── CREAM PUFFS ── -->
+    <circle cx="86"  cy="200" r="22" fill="white"/>
+    <circle cx="128" cy="192" r="22" fill="white"/>
+    <circle cx="172" cy="188" r="22" fill="white"/>
+    <circle cx="216" cy="188" r="22" fill="white"/>
+    <circle cx="260" cy="192" r="22" fill="white"/>
+    <circle cx="304" cy="200" r="22" fill="white"/>
+    <!-- Puff shading -->
+    <circle cx="86"  cy="200" r="22" fill="#fce4f0" opacity="0.35"/>
+    <circle cx="128" cy="192" r="22" fill="#fce4f0" opacity="0.25"/>
+    <circle cx="304" cy="200" r="22" fill="#fce4f0" opacity="0.35"/>
+
+    <!-- ── STRAWBERRIES ── -->
+    <!-- Strawberry 1 -->
+    <ellipse cx="145" cy="198" rx="18" ry="20" fill="#d93050"/>
+    <ellipse cx="145" cy="197" rx="18" ry="20" fill="#e83060" opacity="0.7"/>
+    <circle cx="140" cy="194" r="2.5" fill="#fff" opacity="0.7"/>
+    <circle cx="150" cy="200" r="2" fill="#fff" opacity="0.5"/>
+    <ellipse cx="145" cy="178" rx="7" ry="6" fill="#4aab3c"/>
+    <!-- Strawberry 2 -->
+    <ellipse cx="200" cy="193" rx="18" ry="20" fill="#d93050"/>
+    <ellipse cx="200" cy="192" rx="18" ry="20" fill="#e83060" opacity="0.7"/>
+    <circle cx="195" cy="189" r="2.5" fill="#fff" opacity="0.7"/>
+    <circle cx="205" cy="195" r="2" fill="#fff" opacity="0.5"/>
+    <ellipse cx="200" cy="173" rx="7" ry="6" fill="#4aab3c"/>
+    <!-- Strawberry 3 -->
+    <ellipse cx="255" cy="198" rx="18" ry="20" fill="#d93050"/>
+    <ellipse cx="255" cy="197" rx="18" ry="20" fill="#e83060" opacity="0.7"/>
+    <circle cx="250" cy="194" r="2.5" fill="#fff" opacity="0.7"/>
+    <circle cx="260" cy="200" r="2" fill="#fff" opacity="0.5"/>
+    <ellipse cx="255" cy="178" rx="7" ry="6" fill="#4aab3c"/>
+
+    <!-- ── CANDLE STICKS ── -->
+    <rect x="155" y="130" width="18" height="58" rx="4" fill="url(#goldCandle)"/>
+    <rect x="227" y="130" width="18" height="58" rx="4" fill="url(#goldCandle)"/>
+    <!-- Candle highlight -->
+    <rect x="159" y="133" width="5" height="48" rx="2" fill="#ffe680" opacity="0.55"/>
+    <rect x="231" y="133" width="5" height="48" rx="2" fill="#ffe680" opacity="0.55"/>
+    <!-- Wick -->
+    <line x1="164" y1="130" x2="164" y2="122" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="236" y1="130" x2="236" y2="122" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- ── NUMBER "2" on candles ── -->
+    <text x="164" y="178" font-family="-apple-system,Arial,sans-serif" font-size="46" font-weight="900"
+      fill="#ffd84a" stroke="#b87200" stroke-width="2.5" paint-order="stroke fill"
+      text-anchor="middle">2</text>
+    <text x="236" y="178" font-family="-apple-system,Arial,sans-serif" font-size="46" font-weight="900"
+      fill="#ffd84a" stroke="#b87200" stroke-width="2.5" paint-order="stroke fill"
+      text-anchor="middle">2</text>
+
+    <!-- ── FLAMES ── -->
+    <ellipse cx="164" cy="112" rx="10" ry="14" fill="url(#flame1)"/>
+    <ellipse cx="164" cy="114" rx="5"  ry="8"  fill="#fffde0" opacity="0.85"/>
+    <ellipse cx="236" cy="112" rx="10" ry="14" fill="url(#flame1)"/>
+    <ellipse cx="236" cy="114" rx="5"  ry="8"  fill="#fffde0" opacity="0.85"/>
+  </g>
+</svg>
