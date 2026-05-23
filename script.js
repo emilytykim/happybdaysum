@@ -47,7 +47,7 @@ const SCREENS = [
     type: 'glowny',
     img1: 'assets/8.jpg',
     img2: 'assets/9.jpg',
-    cap1: 'Sumin at GLOWNY.\n우리 한국 가면 또 하루종일 쇼핑하다가 헤어져야 되는데….\n글로니는 맨날 구경 가지만 사실 뭘 사진 않아…\n보면 예쁜데 몬가 살 건 없는 느낌…',
+    cap1: 'Sumin at GLOWNY.\n우리 한국 가서 또 하루 종일 쇼핑하다가 헤어져야 되는데 ㅎㅎㅎ\n글로니는 맨날 구경 가지만 사실 뭘 사진 않아…\n보면 예쁜데 몬가 살 건 없는 느낌…',
     cap2: '그치만 글로니 포토부스는 🐐'
   },
 
@@ -56,7 +56,7 @@ const SCREENS = [
     strip1: ['assets/10.jpg', 'assets/11.jpg'],
     strip2: ['assets/12.JPG', 'assets/13.jpg', 'assets/14.JPG', 'assets/15.JPG'],
     imgBottom: 'assets/16.JPG',
-    caption: '쑴 & 에밀리의 n번째 New York 🗽🗽',
+    caption: '쑴 & 에밀리의 n번째 뉴욕뉴욕 🗽🗽',
     subCaption: '다음 뉴욕은 언제?!'
   },
 
@@ -204,6 +204,7 @@ function renderCake() {
 function renderPhoto(s) {
   const wrapper = document.createElement('div');
   wrapper.className = 'photo-screen';
+  if (s.long) wrapper.classList.add('photo-screen-long');
 
   const card = document.createElement('div');
   card.className = 'photo-card';
@@ -280,7 +281,7 @@ function renderGlowny(s) {
 /* ─── NY Screen ──────────────────────────────────────────────────── */
 function renderNY(s) {
   const wrapper = document.createElement('div');
-  wrapper.className = 'photo-screen';
+  wrapper.className = 'photo-screen photo-screen-ny';
 
   const card = document.createElement('div');
   card.className = 'photo-card';
