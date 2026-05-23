@@ -1,4 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380">
+  <style>
+    .flame {
+      transform-box: fill-box;
+      transform-origin: 50% 88%;
+      animation: flame-flicker 0.9s ease-in-out infinite alternate;
+    }
+    .flame.two { animation-delay: -0.28s; animation-duration: 1.05s; }
+    .flame-core {
+      transform-box: fill-box;
+      transform-origin: 50% 88%;
+      animation: core-flicker 0.72s ease-in-out infinite alternate;
+    }
+    .flame-core.two { animation-delay: -0.18s; }
+    @keyframes flame-flicker {
+      0% { transform: translateX(-1px) scaleX(0.92) scaleY(1.05) rotate(-3deg); opacity: 0.9; }
+      45% { transform: translateX(1px) scaleX(1.08) scaleY(0.96) rotate(2deg); opacity: 1; }
+      100% { transform: translateX(0) scaleX(0.98) scaleY(1.12) rotate(4deg); opacity: 0.94; }
+    }
+    @keyframes core-flicker {
+      0% { transform: scaleX(0.84) scaleY(1.04); opacity: 0.72; }
+      100% { transform: scaleX(1.08) scaleY(0.92); opacity: 0.94; }
+    }
+  </style>
   <defs>
     <!-- Flames -->
     <radialGradient id="flame1" cx="50%" cy="70%" r="55%">
@@ -12,11 +35,26 @@
       <stop offset="50%" stop-color="#fdeef4"/>
       <stop offset="100%" stop-color="#f5c0d5"/>
     </linearGradient>
-    <!-- Candle gold gradient -->
-    <linearGradient id="goldCandle" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#e8a400"/>
-      <stop offset="40%" stop-color="#ffd84a"/>
-      <stop offset="100%" stop-color="#c88000"/>
+    <linearGradient id="cakeSideShade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="45%" stop-color="#d95f93" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#b8005b" stop-opacity="0.16"/>
+    </linearGradient>
+    <linearGradient id="stripeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e878a7"/>
+      <stop offset="50%" stop-color="#f4a5c5"/>
+      <stop offset="100%" stop-color="#dd6f9f"/>
+    </linearGradient>
+    <linearGradient id="creamTopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="62%" stop-color="#fff7fc"/>
+      <stop offset="100%" stop-color="#f2d8e8"/>
+    </linearGradient>
+    <!-- Number candle gold gradient -->
+    <linearGradient id="numberCandle" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe875"/>
+      <stop offset="48%" stop-color="#ffd34a"/>
+      <stop offset="100%" stop-color="#f0a51c"/>
     </linearGradient>
     <!-- Plate gradient -->
     <radialGradient id="plateGrad" cx="50%" cy="40%" r="60%">
@@ -46,14 +84,25 @@
     <!-- ── CAKE BODY ── -->
     <!-- Main rounded cake shape -->
     <rect x="52" y="210" width="296" height="100" rx="10" fill="url(#cakeGrad)"/>
+    <rect x="52" y="210" width="296" height="100" rx="10" fill="url(#cakeSideShade)"/>
+    <path d="M64 218 C98 210 138 214 174 219 C222 226 281 224 338 214" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" opacity="0.28"/>
     <!-- Pink stripes -->
-    <rect x="52" y="228" width="296" height="16" fill="#f09ab8" rx="2"/>
-    <rect x="52" y="262" width="296" height="16" fill="#f09ab8" rx="2"/>
+    <rect x="52" y="228" width="296" height="16" fill="url(#stripeGrad)" rx="2"/>
+    <rect x="52" y="262" width="296" height="16" fill="url(#stripeGrad)" rx="2"/>
+    <path d="M54 244 H346" stroke="#ffffff" stroke-width="3" opacity="0.18"/>
+    <path d="M54 278 H346" stroke="#b9005a" stroke-width="3" opacity="0.09"/>
+    <path d="M74 234 C126 241 155 232 202 237 C247 242 286 235 330 239" fill="none" stroke="#ffd9ea" stroke-width="3" opacity="0.42"/>
+    <path d="M70 269 C122 276 164 267 209 272 C250 276 288 270 333 273" fill="none" stroke="#ffd9ea" stroke-width="3" opacity="0.36"/>
+    <path d="M58 211 v91 c0 6 5 10 11 10 h18 c-8-30-8-66 0-105 H69 c-6 0-11 3-11 4Z" fill="#ffffff" opacity="0.13"/>
+    <path d="M331 211 v99 h7 c6 0 10-4 10-10 v-80 c0-6-4-10-10-10Z" fill="#ad0058" opacity="0.09"/>
     <!-- Bottom curve -->
     <ellipse cx="200" cy="310" rx="148" ry="14" fill="#f5c0d5"/>
+    <ellipse cx="200" cy="306" rx="138" ry="9" fill="#ffffff" opacity="0.14"/>
 
     <!-- ── CAKE TOP (cream base) ── -->
-    <ellipse cx="200" cy="212" rx="148" ry="22" fill="#fff8fc"/>
+    <ellipse cx="200" cy="212" rx="148" ry="22" fill="url(#creamTopGrad)"/>
+    <path d="M70 210 C98 236 128 218 142 233 C156 250 181 232 196 240 C218 252 239 224 257 237 C283 255 300 220 331 217 C299 237 260 245 203 242 C143 239 98 230 70 210Z" fill="#ffffff" opacity="0.34"/>
+    <path d="M73 218 C110 232 151 236 198 236 C250 236 295 230 328 218" fill="none" stroke="#e8bfd5" stroke-width="4" opacity="0.35"/>
 
     <!-- ── CREAM PUFFS ── -->
     <circle cx="86"  cy="200" r="22" fill="white"/>
@@ -87,28 +136,24 @@
     <circle cx="260" cy="200" r="2" fill="#fff" opacity="0.5"/>
     <ellipse cx="255" cy="178" rx="7" ry="6" fill="#4aab3c"/>
 
-    <!-- ── CANDLE STICKS ── -->
-    <rect x="155" y="130" width="18" height="58" rx="4" fill="url(#goldCandle)"/>
-    <rect x="227" y="130" width="18" height="58" rx="4" fill="url(#goldCandle)"/>
-    <!-- Candle highlight -->
-    <rect x="159" y="133" width="5" height="48" rx="2" fill="#ffe680" opacity="0.55"/>
-    <rect x="231" y="133" width="5" height="48" rx="2" fill="#ffe680" opacity="0.55"/>
-    <!-- Wick -->
-    <line x1="164" y1="130" x2="164" y2="122" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="236" y1="130" x2="236" y2="122" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-
-    <!-- ── NUMBER "2" on candles ── -->
-    <text x="164" y="178" font-family="-apple-system,Arial,sans-serif" font-size="46" font-weight="900"
-      fill="#ffd84a" stroke="#b87200" stroke-width="2.5" paint-order="stroke fill"
-      text-anchor="middle">2</text>
-    <text x="236" y="178" font-family="-apple-system,Arial,sans-serif" font-size="46" font-weight="900"
-      fill="#ffd84a" stroke="#b87200" stroke-width="2.5" paint-order="stroke fill"
-      text-anchor="middle">2</text>
+    <!-- ── NUMBER CANDLES ── -->
+    <g aria-label="22 candle">
+      <text x="162" y="172" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif" font-size="98" font-weight="950"
+        fill="#b97810" opacity="0.32" text-anchor="middle" transform="translate(4 7)">2</text>
+      <text x="238" y="172" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif" font-size="98" font-weight="950"
+        fill="#b97810" opacity="0.32" text-anchor="middle" transform="translate(4 7)">2</text>
+      <text x="162" y="172" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif" font-size="98" font-weight="950"
+        fill="url(#numberCandle)" stroke="#c47a10" stroke-width="2.5" paint-order="stroke fill" text-anchor="middle">2</text>
+      <text x="238" y="172" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif" font-size="98" font-weight="950"
+        fill="url(#numberCandle)" stroke="#c47a10" stroke-width="2.5" paint-order="stroke fill" text-anchor="middle">2</text>
+      <line x1="162" y1="103" x2="162" y2="88" stroke="#4a2b16" stroke-width="3" stroke-linecap="round"/>
+      <line x1="238" y1="103" x2="238" y2="88" stroke="#4a2b16" stroke-width="3" stroke-linecap="round"/>
+    </g>
 
     <!-- ── FLAMES ── -->
-    <ellipse cx="164" cy="112" rx="10" ry="14" fill="url(#flame1)"/>
-    <ellipse cx="164" cy="114" rx="5"  ry="8"  fill="#fffde0" opacity="0.85"/>
-    <ellipse cx="236" cy="112" rx="10" ry="14" fill="url(#flame1)"/>
-    <ellipse cx="236" cy="114" rx="5"  ry="8"  fill="#fffde0" opacity="0.85"/>
+    <ellipse class="flame one" cx="162" cy="77" rx="14" ry="21" fill="url(#flame1)"/>
+    <ellipse class="flame-core one" cx="162" cy="80" rx="7"  ry="12"  fill="#fffde0" opacity="0.88"/>
+    <ellipse class="flame two" cx="238" cy="77" rx="14" ry="21" fill="url(#flame1)"/>
+    <ellipse class="flame-core two" cx="238" cy="80" rx="7"  ry="12"  fill="#fffde0" opacity="0.88"/>
   </g>
 </svg>

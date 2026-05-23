@@ -112,6 +112,7 @@ const SCREENS = [
 /* ─── State ──────────────────────────────────────────────────────── */
 let current = 0;
 const TOTAL = SCREENS.length;
+let openingStarted = false;
 
 /* ─── DOM Refs ───────────────────────────────────────────────────── */
 const screenEl   = document.getElementById('screen');
@@ -179,20 +180,137 @@ function renderScreen() {
 
 /* ─── Opening Screen ─────────────────────────────────────────────── */
 function renderOpening() {
+  openingStarted = false;
   screenEl.innerHTML = `
-    <div class="opening-envelope">💌</div>
-    <div class="opening-title">A message has arrived.</div>
-    <div class="opening-sub">press enter / touch to move on</div>
+    <div class="opening-screen">
+      <div class="opening-title">A message has arrived.</div>
+      <div class="envelope-scene" aria-label="Birthday message envelope">
+        <button class="envelope-card" type="button" aria-label="Open Sumin's birthday message">
+          <span class="envelope-back"></span>
+          <span class="opening-letter">for Sumin 🤍</span>
+          <span class="envelope-flap-top"></span>
+          <span class="envelope-front"></span>
+          <span class="envelope-fold-left"></span>
+          <span class="envelope-fold-right"></span>
+          <span class="envelope-fold-bottom"></span>
+          <span class="envelope-address envelope-to">To. Sumin Han</span>
+          <span class="envelope-address envelope-from">From Emily Kim</span>
+          <svg class="heart-seal" viewBox="0 0 120 108" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="seal-grad" x1="20" y1="12" x2="98" y2="100" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ff2f78"/>
+                <stop offset="0.48" stop-color="#ee004f"/>
+                <stop offset="1" stop-color="#a80030"/>
+              </linearGradient>
+              <radialGradient id="seal-shine" cx="34" cy="25" r="38" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fff" stop-opacity="0.95"/>
+                <stop offset="0.28" stop-color="#fff" stop-opacity="0.38"/>
+                <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="seal-shadow" x="-25%" y="-25%" width="150%" height="160%">
+                <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#5c001f" flood-opacity="0.42"/>
+              </filter>
+            </defs>
+            <path filter="url(#seal-shadow)" d="M60 101C41 82 14 65 10 39C7 18 22 5 41 8C51 10 57 17 60 24C63 17 70 10 80 8C99 5 113 18 110 39C106 65 79 82 60 101Z" fill="url(#seal-grad)"/>
+            <path d="M60 101C41 82 14 65 10 39C7 18 22 5 41 8C51 10 57 17 60 24C63 17 70 10 80 8C99 5 113 18 110 39C106 65 79 82 60 101Z" fill="url(#seal-shine)"/>
+            <path d="M31 20C40 16 50 19 55 29" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <span class="envelope-sparkle sparkle-one"></span>
+        <span class="envelope-sparkle sparkle-two"></span>
+        <span class="envelope-sparkle sparkle-three"></span>
+        <svg class="tiny-gloss-heart heart-one" viewBox="0 0 120 108" aria-hidden="true" focusable="false">
+          <path d="M60 101C41 82 14 65 10 39C7 18 22 5 41 8C51 10 57 17 60 24C63 17 70 10 80 8C99 5 113 18 110 39C106 65 79 82 60 101Z"/>
+          <path class="tiny-heart-shine" d="M30 20C39 16 48 19 54 28"/>
+        </svg>
+        <svg class="tiny-gloss-heart heart-two" viewBox="0 0 120 108" aria-hidden="true" focusable="false">
+          <path d="M60 101C41 82 14 65 10 39C7 18 22 5 41 8C51 10 57 17 60 24C63 17 70 10 80 8C99 5 113 18 110 39C106 65 79 82 60 101Z"/>
+          <path class="tiny-heart-shine" d="M30 20C39 16 48 19 54 28"/>
+        </svg>
+      </div>
+      <div class="opening-sub">tap the heart to open</div>
+    </div>
   `;
   removeHint();
-  addHint('press enter · click · touch to continue');
+  const envelope = screenEl.querySelector('.envelope-card');
+  envelope.addEventListener('click', handleEnvelopeClick);
+}
+
+/* Envelope opening animation: gated so the intro can only advance once. */
+function handleEnvelopeClick(e) {
+  if (openingStarted) {
+    if (e.target.closest('.opening-letter')) revealBirthdayFromLetter();
+    return;
+  }
+  openEnvelope();
+}
+
+function openEnvelope() {
+  if (current !== 0 || openingStarted) return;
+  openingStarted = true;
+  const opening = screenEl.querySelector('.opening-screen');
+  opening.classList.add('is-opening');
+  const sub = opening.querySelector('.opening-sub');
+  if (sub) sub.textContent = 'tap the letter to continue';
+}
+
+function revealBirthdayFromLetter() {
+  if (current !== 0) return;
+  const opening = screenEl.querySelector('.opening-screen');
+  if (!opening || opening.classList.contains('is-revealing')) return;
+  opening.classList.add('is-revealing');
+  launchBirthdayFireworks(opening);
+
+  setTimeout(() => {
+    current = 1;
+    renderScreen();
+    screenEl.classList.add('firework-enter');
+    screenEl.addEventListener('animationend', () => {
+      screenEl.classList.remove('firework-enter');
+    }, { once: true });
+    updateUI();
+  }, 950);
+}
+
+function launchBirthdayFireworks(opening) {
+  const layer = document.createElement('div');
+  layer.className = 'firework-layer';
+  const bursts = [
+    { x: 50, y: 42, delay: 0 },
+    { x: 22, y: 30, delay: 80 },
+    { x: 78, y: 31, delay: 120 },
+    { x: 34, y: 64, delay: 190 },
+    { x: 66, y: 63, delay: 230 },
+    { x: 14, y: 54, delay: 280 },
+    { x: 86, y: 55, delay: 320 },
+    { x: 50, y: 70, delay: 380 }
+  ];
+  const colors = ['#ffffff', '#ffd166', '#ff4fa3', '#7df9ff', '#9cffcb', '#b99cff', '#ff8ad6'];
+
+  bursts.forEach((burst, burstIndex) => {
+    for (let i = 0; i < 22; i++) {
+      const particle = document.createElement('span');
+      const angle = (Math.PI * 2 * i) / 22;
+      const distance = 86 + ((i + burstIndex) % 7) * 18;
+      particle.className = 'firework-particle';
+      particle.style.left = `${burst.x}%`;
+      particle.style.top = `${burst.y}%`;
+      particle.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+      particle.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+      particle.style.setProperty('--delay', `${burst.delay}ms`);
+      particle.style.setProperty('--color', colors[(i + burstIndex) % colors.length]);
+      layer.appendChild(particle);
+    }
+  });
+
+  opening.appendChild(layer);
 }
 
 /* ─── Cake Screen ────────────────────────────────────────────────── */
 function renderCake() {
   screenEl.innerHTML = `
     <div class="cake-screen">
-      <div class="bday-title">HAPPY<br>22nd BIRTHDAY<br>SUMIN!!!!!</div>
+      <div class="bday-title">HAPPY 22nd<br>BIRTHDAY<br>SUMIN!!!</div>
       <img src="assets/birthday-cake.svg" class="cake-svg" alt="birthday cake">
     </div>
   `;
@@ -381,26 +499,31 @@ function removeHint() {
   if (hintEl) { hintEl.remove(); hintEl = null; }
 }
 
-/* ─── Floating Hearts / Particles ───────────────────────────────── */
-const EMOJIS = ['🩷', '💗', '💕', '✨', '🌸', '💖', '⭐', '🎀', '💝', '🌷'];
+/* ─── Floating CSS Hearts / Diamonds ────────────────────────────── */
+const PARTICLE_SHAPES = ['heart', 'diamond', 'diamond', 'heart'];
 
 function createHearts() {
   const container = document.getElementById('bg-hearts');
-  const count = window.innerWidth < 480 ? 14 : 22;
+  const count = window.innerWidth < 480 ? 7 : 11;
+  const sideBands = [
+    [5, 24],
+    [76, 95]
+  ];
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement('div');
-    el.className = 'heart-particle';
-    el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    const shape = PARTICLE_SHAPES[Math.floor(Math.random() * PARTICLE_SHAPES.length)];
+    el.className = `heart-particle particle-${shape}`;
 
-    const size   = 0.9 + Math.random() * 1.0;
-    const left   = Math.random() * 100;
-    const dur    = 8 + Math.random() * 12;
+    const size   = 0.65 + Math.random() * 0.55;
+    const band   = sideBands[i % sideBands.length];
+    const left   = band[0] + Math.random() * (band[1] - band[0]);
+    const dur    = 13 + Math.random() * 10;
     const delay  = -(Math.random() * dur);
 
     el.style.cssText = `
       left: ${left}%;
-      font-size: ${size}rem;
+      --particle-size: ${size}rem;
       animation-duration: ${dur}s;
       animation-delay: ${delay}s;
     `;
@@ -422,6 +545,7 @@ document.addEventListener('touchend', e => {
 
   // Any vertical movement → user is scrolling, do nothing
   if (Math.abs(dy) > 8) return;
+  if (current === 0) return;
 
   if (Math.abs(dx) > 50) {
     // Horizontal swipe
@@ -435,7 +559,16 @@ document.addEventListener('touchend', e => {
 
 /* ─── Keyboard ───────────────────────────────────────────────────── */
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === 'ArrowRight' || e.key === ' ') {
+  if (current === 0 && e.key === 'Enter') {
+    e.preventDefault();
+    if (openingStarted) {
+      revealBirthdayFromLetter();
+      return;
+    }
+    openEnvelope();
+    return;
+  }
+  if (current !== 0 && (e.key === 'Enter' || e.key === 'ArrowRight' || e.key === ' ')) {
     e.preventDefault();
     next();
   }
@@ -450,6 +583,7 @@ let pointerDownY = 0;
 screenEl.addEventListener('pointerdown', e => { pointerDownY = e.clientY; });
 screenEl.addEventListener('click', e => {
   if (e.target.closest('#prev-btn')) return;
+  if (current === 0) return;
   // Ignore if pointer moved vertically (was a scroll drag, not a click)
   if (Math.abs(e.clientY - pointerDownY) > 8) return;
   // Skip on touch — touchend already handled it
